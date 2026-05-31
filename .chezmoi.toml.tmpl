@@ -3,8 +3,8 @@
 [data]
     isWorkComputer = {{ $isWorkComputer }}
 
-[hooks.read-source-state.pre]
-    command = ".local/share/chezmoi/.install-prerequisites.sh"
+[keepassxc]
+    database = {{ promptPathOnce . "keepassxcDatabase" "Path to KeePassXC database" }}
 
 [git]
     autoCommit = true

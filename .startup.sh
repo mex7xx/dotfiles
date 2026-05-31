@@ -19,6 +19,6 @@ else
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-brew install chezmoi
-chezmoi init danielmschmidt
+brew install chezmoi keepassxc
+chezmoi init mex7xx
 chezmoi apply

@@ -1,8 +1,1 @@
 README.md
-settings.json
-claude-configs
-.claude/**
-
-{{ if ne .chezmoi.os "darwin" }}
-dot_config/fish/conf.d/1password.fish
-{{ end }}

@@ -1,146 +1,19 @@
 packages:
     universal:
-        taps:
-            - "1password/tap"
-            - "git-duet/tap"
-            - "danielmschmidt/homebrew-tap"
+        taps: []
         brews:
-            - "arthur-ficial/tap/apfel"
-            - "bash"
-            - "bat"
-            - "charmbracelet/tap/crush"
-            - "chezmoi"
-            - "cmake"
-            - "danielmschmidt/homebrew-tap/go-again"
-            - "danielmschmidt/homebrew-tap/pomobar"
-            - "duti"
-            - "editorconfig"
-            - "ffmpeg"
-            - "fish"
-            - "fisher"
-            - "fzf"
-            - "gh"
             - "git"
-            - "git-absorb"
-            - "git-delta"
-            - "git-duet/tap/git-duet"
-            - "git-extras"
-            - "git-lfs"
-            - "gopls"
-            - "gpg"
-            - "graphviz"
-            - "imagemagick"
-            - "jless"
-            - "jq"
             - "mas"
             - "mise"
-            - "ripgrep"
-            - "rsync"
-            - "rtk"
-            - "stripe/stripe-cli/stripe"
-            - "tfenv"
-            - "tree"
-            - "typescript-language-server"
-            - "typst"
-            - "vhs"
-            - "vim"
-            - "viu"
-            - "wget"
-            - "z"
-        casks:
-            - "1password"
-            - "1password-cli"
-            - "caffeine"
-            - "claude-code"
-            - "cmake-app"
-            - "docker-desktop"
-            - "flux-app"
-            - "font-hack"
-            - "font-hack-nerd-font"
-            - "ghostty"
-            - "github@beta"
-            - "google-chrome"
-            - "google-chrome@canary"
-            - "handy"
-            - "imageoptim"
-            - "jordanbaird-ice"
-            - "kap"
-            - "maccy"
-            - "monodraw"
-            - "obs"
-            - "raycast"
-            - "rectangle-pro"
-            - "spotify"
-            - "zed"
-        mas:
-            - name: "Focus To-Do"
-              id: "1258530160"
-            - name: "WhatsApp"
-              id: "310633997"
-            - name: "Telegram"
-              id: "747648890"
-            - name: "Xcode"
-              id: "497799835"
-        fisher:
-            - "IlanCosman/tide@v6"
-            - "jethrokuan/z"
+        casks: []
+        mas: []
     work:
-        taps:
-            - "hashicorp/internal"
-            - "hashicorp/releng"
-            - "hashicorp/security"
-            - "hashicorp/tap"
-            - "warrensbox/tap"
-        brews:
-            - "ansible"
-            - "awscli"
-            - "bufbuild/buf/buf"
-            - "delve"
-            - "gnupg"
-            - "hashicorp/internal/docker-credential-doormat"
-            - "hashicorp/internal/tfcdev"
-            - "hashicorp/releng/bob"
-            - "hashicorp/security/doormat-cli"
-            - "hashicorp/security/tsccr-helper"
-            - "hashicorp/tap/copywrite"
-            - "terraform-ls"
-            - "warrensbox/tap/tfswitch"
-            - "watch"
-        casks:
-            - "copilot-cli"
-            - "deskpad"
-            - "microsoft-teams"
-            - "postico"
-            - "switchresx"
-        mas: 
-            - name: "iMovie"
-              id: "408981434"
-            - name: "Okta Verify"
-              id: "490179405"
-        fisher: []
-
+        taps: []
+        brews: []
+        casks: []
+        mas: []
     private:
-        taps: 
-            - "anomalyco/tap"
-            - "arthur-ficial/tap"
-            - "stripe/stripe-cli"
-            - "yakitrak/yakitrak"
-        brews: 
-            - "arthur-ficial/tap/apfel"
-            - "bash"
-            - "bat"
-            - "chezmoi"
-            - "cloudflared"
-            - "rtk"
-            - "stripe/stripe-cli/stripe"
-            - "typescript-language-server"
-            - "typst"
-            - "vhs"
-        casks:
-            - "notion"
-        mas: 
-            - name: "Kindle"
-              id: "302584613"
-            - name: "MacDroid"
-              id: "1476545828"
-        fisher: []
+        taps: []
+        brews: []
+        casks: []
+        mas: []
