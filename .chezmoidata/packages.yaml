@@ -5,7 +5,8 @@ packages:
             - "git"
             - "mas"
             - "mise"
-        casks: []
+        casks:
+            - "keepassxc"
         mas: []
     work:
         taps: []

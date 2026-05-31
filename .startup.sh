@@ -19,6 +19,8 @@ else
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-brew install chezmoi keepassxc
+# install the tool needed to initialize and apply this repo
+brew install chezmoi
 chezmoi init mex7xx
+# apply dotfiles and run scripts
 chezmoi apply

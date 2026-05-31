@@ -266,7 +266,7 @@ if [[ $total_add -gt 0 ]]; then
         yaml_add_mas universal "${add_mas_names[$i]}" "${add_mas_ids[$i]}"
     done
 fi
-fi
+
 
 # --- Execute removals (formulae/casks before taps) ---
 

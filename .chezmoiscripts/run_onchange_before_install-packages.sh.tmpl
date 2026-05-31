@@ -53,14 +53,15 @@ BREWEOF
 # Install packages
 brew bundle --file="$brewfile"
 
-# Warn about and remove undeclared packages
-undeclared=$(brew bundle cleanup --file="$brewfile" 2>/dev/null)
+# Warn about undeclared packages without removing them
+undeclared=$(brew bundle cleanup --file="$brewfile" 2>/dev/null || true)
 if [[ -n "$undeclared" ]]; then
     echo ""
-    echo "WARNING: Removing packages not declared in packages.yaml:"
+    echo "WARNING: Packages installed but not declared in packages.yaml:"
     echo "$undeclared"
-    brew bundle cleanup --force --file="$brewfile"
-    brew autoremove
+    echo ""
+    echo "Run ./audit-packages.sh to inspect drift."
+    echo "Run ./cleanup-packages.sh to remove undeclared packages."
 fi
 
 rm -f "$brewfile"
