@@ -66,18 +66,6 @@ else
 fi
 
 echo ""
-echo "Fisher plugins"
-echo "---"
-if [[ ${#offending_fisher[@]} -gt 0 ]]; then
-    for plugin in "${offending_fisher[@]}"; do
-        echo "  ⚠ $plugin"
-    done
-    warnings=$((warnings + ${#offending_fisher[@]}))
-else
-    echo "  ✓ all clean"
-fi
-
-echo ""
 echo "================================================"
 if [[ $warnings -gt 0 ]]; then
     echo "$warnings package(s) installed but not declared in packages.yaml"

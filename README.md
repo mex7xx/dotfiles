@@ -1,20 +1,26 @@
-# My dotfiles
+# dotfiles
 
-> managed by [chezmoi](https://www.chezmoi.io/)
+Managed by [chezmoi](https://www.chezmoi.io/). Package management via Brewfile generated from `packages.yaml`.
 
 ## Setup
 
 ```bash
-curl -sfL https://raw.githubusercontent.com/DanielMSchmidt/dotfiles/main/.startup.sh | bash
+curl -sfL https://raw.githubusercontent.com/mex7xx/dotfiles/main/.startup.sh | bash
 ```
 
-**Final touches**
+Prompts: work/personal profile + KeePassXC database path.
 
-- Setting the keyboard:
+## Package management
+
+- Edit `.chezmoidata/packages.yaml` then `chezmoi apply`
+- `./audit-packages.sh` — report drift
+- `./reconcile-packages.sh` — interactively add/remove undeclared packages
+- `./cleanup-packages.sh` — remove all undeclared packages
+
+## Personalize
+
 ```bash
-./.set-keyboard.sh
+chezmoi add ~/.zshrc          # add your dotfiles
+chezmoi add ~/.gitconfig      # managed by chezmoi from now on
+chezmoi cd                    # edit source files directly
 ```
-
-## Last manual steps
-- Set default spotlight search to cmd+shit+space and Raycast to cmd+space
-- Configure right click

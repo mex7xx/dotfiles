@@ -13,7 +13,7 @@ echo "Detecting undeclared packages (profile: $PROFILE)..."
 build_expected_sets
 find_offending
 
-total=$((${#offending_brews[@]} + ${#offending_casks[@]} + ${#offending_taps[@]} + ${#offending_mas_names[@]} + ${#offending_fisher[@]}))
+total=$((${#offending_brews[@]} + ${#offending_casks[@]} + ${#offending_taps[@]} + ${#offending_mas_names[@]}))
 
 if [[ $total -eq 0 ]]; then
     echo "Nothing to reconcile — all installed packages are declared."
@@ -22,7 +22,7 @@ fi
 
 # --- YAML editing helpers ---
 
-# Add a simple list item (brews, casks, taps, fisher) to packages.yaml
+# Add a simple list item (brews, casks, taps) to packages.yaml
 yaml_add_item() {
     local subsection="$1" key="$2" value="$3"
     local indent="            "
@@ -122,14 +122,12 @@ add_casks=()
 add_taps=()
 add_mas_names=()
 add_mas_ids=()
-add_fisher=()
 
 remove_brews=()
 remove_casks=()
 remove_taps=()
 remove_mas_names=()
 remove_mas_ids=()
-remove_fisher=()
 
 if [[ ${#offending_brews[@]} -gt 0 ]]; then
     echo ""
@@ -187,20 +185,6 @@ if [[ ${#offending_mas_names[@]} -gt 0 ]]; then
     done
 fi
 
-if [[ ${#offending_fisher[@]} -gt 0 ]]; then
-    echo ""
-    echo "Fisher plugins (${#offending_fisher[@]} undeclared)"
-    echo "---"
-    bulk=""
-    for plugin in "${offending_fisher[@]}"; do
-        prompt_choice "$plugin"
-        case "$choice" in
-            add)    add_fisher+=("$plugin") ;;
-            remove) remove_fisher+=("$plugin") ;;
-        esac
-    done
-fi
-
 # --- Auto-add taps for tap-qualified brews/casks being added ---
 
 for pkg in "${add_brews[@]}"; do
@@ -220,8 +204,8 @@ done
 
 # --- Summary ---
 
-total_add=$((${#add_brews[@]} + ${#add_casks[@]} + ${#add_taps[@]} + ${#add_mas_names[@]} + ${#add_fisher[@]}))
-total_remove=$((${#remove_brews[@]} + ${#remove_casks[@]} + ${#remove_taps[@]} + ${#remove_mas_names[@]} + ${#remove_fisher[@]}))
+total_add=$((${#add_brews[@]} + ${#add_casks[@]} + ${#add_taps[@]} + ${#add_mas_names[@]}))
+total_remove=$((${#remove_brews[@]} + ${#remove_casks[@]} + ${#remove_taps[@]} + ${#remove_mas_names[@]}))
 
 echo ""
 echo "================================================"
@@ -235,7 +219,6 @@ if [[ $total_add -gt 0 ]]; then
     for pkg in "${add_brews[@]}";     do echo "  + brew:   $pkg"; done
     for pkg in "${add_casks[@]}";     do echo "  + cask:   $pkg"; done
     for i in "${!add_mas_names[@]}";  do echo "  + mas:    ${add_mas_names[$i]} (${add_mas_ids[$i]})"; done
-    for pkg in "${add_fisher[@]}";    do echo "  + fisher: $pkg"; done
 fi
 
 if [[ $total_remove -gt 0 ]]; then
@@ -245,7 +228,6 @@ if [[ $total_remove -gt 0 ]]; then
     for pkg in "${remove_casks[@]}";     do echo "  - cask:   $pkg"; done
     for pkg in "${remove_taps[@]}";      do echo "  - tap:    $pkg"; done
     for i in "${!remove_mas_names[@]}";  do echo "  - mas:    ${remove_mas_names[$i]}"; done
-    for pkg in "${remove_fisher[@]}";    do echo "  - fisher: $pkg"; done
 fi
 
 if [[ $total_add -eq 0 && $total_remove -eq 0 ]]; then
@@ -283,10 +265,7 @@ if [[ $total_add -gt 0 ]]; then
         echo "  + mas: ${add_mas_names[$i]}"
         yaml_add_mas universal "${add_mas_names[$i]}" "${add_mas_ids[$i]}"
     done
-    for pkg in "${add_fisher[@]}"; do
-        echo "  + fisher: $pkg"
-        yaml_add_item universal fisher "$pkg"
-    done
+fi
 fi
 
 # --- Execute removals (formulae/casks before taps) ---
@@ -326,16 +305,6 @@ if [[ ${#remove_mas_names[@]} -gt 0 ]]; then
     for i in "${!remove_mas_names[@]}"; do
         echo "  mas uninstall ${remove_mas_ids[$i]}  # ${remove_mas_names[$i]}"
         if ! mas uninstall "${remove_mas_ids[$i]}" 2>&1 | sed 's/^/    /'; then
-            errors=$((errors + 1))
-        fi
-    done
-fi
-
-if [[ ${#remove_fisher[@]} -gt 0 ]]; then
-    echo "Removing Fisher plugins..."
-    for plugin in "${remove_fisher[@]}"; do
-        echo "  fisher remove $plugin"
-        if ! fish -c "fisher remove '$plugin'" 2>&1 | sed 's/^/    /'; then
             errors=$((errors + 1))
         fi
     done

@@ -22,7 +22,7 @@ echo "Detecting undeclared packages (profile: $PROFILE)..."
 build_expected_sets
 find_offending
 
-total=$((${#offending_brews[@]} + ${#offending_casks[@]} + ${#offending_taps[@]} + ${#offending_mas_names[@]} + ${#offending_fisher[@]}))
+total=$((${#offending_brews[@]} + ${#offending_casks[@]} + ${#offending_taps[@]} + ${#offending_mas_names[@]}))
 
 if [[ $total -eq 0 ]]; then
     echo "Nothing to remove — all installed packages are declared."
@@ -58,12 +58,6 @@ if [[ ${#offending_mas_names[@]} -gt 0 ]]; then
     for i in "${!offending_mas_names[@]}"; do
         echo "  - ${offending_mas_names[$i]} (id: ${offending_mas_ids[$i]})"
     done
-fi
-
-if [[ ${#offending_fisher[@]} -gt 0 ]]; then
-    echo ""
-    echo "Fisher plugins (${#offending_fisher[@]}):"
-    for plugin in "${offending_fisher[@]}"; do echo "  - $plugin"; done
 fi
 
 echo ""
@@ -127,16 +121,6 @@ if [[ ${#offending_mas_names[@]} -gt 0 ]]; then
     done
 fi
 
-# --- Fisher ---
-if [[ ${#offending_fisher[@]} -gt 0 ]]; then
-    echo "Removing Fisher plugins..."
-    for plugin in "${offending_fisher[@]}"; do
-        echo "  fisher remove $plugin"
-        if ! fish -c "fisher remove '$plugin'" 2>&1 | sed 's/^/    /'; then
-            errors=$((errors + 1))
-        fi
-    done
-fi
 
 # --- Cleanup orphaned dependencies ---
 if command -v brew &>/dev/null && [[ ${#offending_brews[@]} -gt 0 || ${#offending_casks[@]} -gt 0 ]]; then

@@ -78,7 +78,7 @@ collect() {
 }
 
 # --- Build expected sets ---
-# Populates associative arrays: expected_brews, expected_casks, expected_taps, expected_mas, expected_fisher
+# Populates associative arrays: expected_brews, expected_casks, expected_taps, expected_mas
 # Also populates indexed arrays: expected_brew_raw, expected_cask_raw, expected_tap_raw
 
 build_expected_sets() {
@@ -133,17 +133,11 @@ build_expected_sets() {
         [[ -n "$name" ]] && expected_mas["$name"]=1
     done
 
-    # Fisher
-    readarray -t expected_fisher_raw < <(collect fisher)
-    declare -gA expected_fisher
-    for plugin in "${expected_fisher_raw[@]}"; do
-        [[ -n "$plugin" ]] && expected_fisher["${plugin,,}"]=1
-    done
 }
 
 # --- Find offending packages ---
 # Populates arrays: offending_brews, offending_casks, offending_taps, offending_mas_names,
-#                    offending_mas_ids, offending_fisher
+#                    offending_mas_ids
 
 find_offending() {
     offending_brews=()
@@ -151,7 +145,6 @@ find_offending() {
     offending_taps=()
     offending_mas_names=()
     offending_mas_ids=()
-    offending_fisher=()
 
     if command -v brew &>/dev/null; then
         while IFS= read -r pkg; do
@@ -189,14 +182,5 @@ find_offending() {
                 offending_mas_ids+=("$id")
             fi
         done < <(mas list 2>/dev/null)
-    fi
-
-    if command -v fish &>/dev/null; then
-        while IFS= read -r plugin; do
-            [[ -z "$plugin" ]] && continue
-            if [[ -z "${expected_fisher[${plugin,,}]+x}" ]]; then
-                offending_fisher+=("$plugin")
-            fi
-        done < <(fish -c 'fisher list 2>/dev/null' 2>/dev/null)
     fi
 }
