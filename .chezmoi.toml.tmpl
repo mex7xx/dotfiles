@@ -4,7 +4,7 @@
     isWorkComputer = {{ $isWorkComputer }}
 
 [keepassxc]
-    database = {{ promptPathOnce . "keepassxcDatabase" "Path to KeePassXC database" }}
+    database = {{ promptStringOnce . "keepassxcDatabase" "Path to KeePassXC database" }}
 
 [git]
     autoCommit = true
