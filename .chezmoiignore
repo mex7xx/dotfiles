@@ -1,1 +1,8 @@
 README.md
+.gitignore
+.opencode/
+.startup.sh
+_package-helpers.sh
+audit-packages.sh
+cleanup-packages.sh
+reconcile-packages.sh
