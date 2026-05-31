@@ -1,10 +1,11 @@
 {{- $isWorkComputer := promptBoolOnce . "isWorkComputer" "Is this your work computer" -}}
+{{- $keepassxcDb := promptStringOnce . "keepassxcDatabase" "Path to KeePassXC database" -}}
 
 [data]
     isWorkComputer = {{ $isWorkComputer }}
 
 [keepassxc]
-    database = {{ promptStringOnce . "keepassxcDatabase" "Path to KeePassXC database" }}
+    database = {{ $keepassxcDb | quote }}
 
 [git]
     autoCommit = true
