@@ -1,4 +1,3 @@
-# This template is run when chezmoi init cant find a config 
 {{- $isWorkComputer := promptBoolOnce . "isWorkComputer" "Is this your work computer" -}}
 {{- $keepassxcDb := promptStringOnce . "keepassxcDatabase" "Path to KeePassXC database" -}}
 

@@ -1,0 +1,8 @@
+[settings]
+
+[settings.node]
+gpg_verify = false
+
+[tools]
+node = "24"
+python = "3.14"
