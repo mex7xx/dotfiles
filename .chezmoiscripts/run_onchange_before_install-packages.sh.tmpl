@@ -54,8 +54,11 @@ BREWEOF
 brew bundle --file="$brewfile"
 
 # Warn about undeclared packages without removing them
-undeclared=$(brew bundle cleanup --file="$brewfile" 2>/dev/null || true)
-if [[ -n "$undeclared" ]]; then
+if ! undeclared=$(brew bundle cleanup --file="$brewfile" 2>&1); then
+    echo ""
+    echo "WARNING: Could not check undeclared packages:"
+    echo "$undeclared"
+elif [[ -n "$undeclared" ]]; then
     echo ""
     echo "WARNING: Packages installed but not declared in packages.yaml:"
     echo "$undeclared"

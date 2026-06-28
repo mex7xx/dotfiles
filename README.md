@@ -1,6 +1,12 @@
 # dotfiles
 
-Managed by [chezmoi](https://www.chezmoi.io/). Package management via Brewfile generated from `packages.yaml`. Secrets via [KeePassXC](https://keepassxc.org/).
+Managed by [chezmoi](https://www.chezmoi.io/). Package management via Brewfile generated from `packages.yaml`. 
+
+## Overview 
+- chezmoi managing all dotfiles
+- Brewfile generated from .chezmoidata/packages.yaml for system packages
+- KeePassXC for secrets
+- mise for dev runtime versions (python, node, etc.) and system packages if they are not distributed with brew
 
 ## Setup
 
@@ -51,10 +57,37 @@ Drift management (manual):
 - `./reconcile-packages.sh` — interactively add/remove undeclared packages
 - `./cleanup-packages.sh` — remove all undeclared packages
 
-## Personalize
-
+## Personalize chezmoi repo and dotfiles 
 ```bash
 chezmoi add ~/.zshrc          # add your dotfiles
 chezmoi add ~/.gitconfig      # managed by chezmoi from now on
 chezmoi cd                    # edit source files directly
 ```
+
+## Managing tool versions with mise
+
+Use `packages.yaml` for system-level tools and apps. Use `mise` for developer and project-specific runtimes like Python, Node.js, Ruby, Go, and other language/tool versions.
+
+Set global defaults with `mise`:
+
+```bash
+mise use --global python@latest
+mise use --global node@lts
+```
+
+Set project-specific versions from inside a project:
+
+```bash
+mise use python@3.12
+mise use node@22
+```
+
+This lets each project pin its own runtime versions independently of the machine-wide defaults.
+
+### Avoid untracked installs like npm -g 
+For global CLI tools published to npm, use `mise use --global npm:<package>` instead of `npm i -g`:
+
+```bash
+mise use --global npm:command-code@latest
+```
+
